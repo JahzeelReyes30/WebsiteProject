@@ -1,16 +1,15 @@
 # WebsiteProject — MajinCleaningSolutions
 
 A real business website, built end to end with Claude Code: **MajinCleaningSolutions**, a
-healthcare-inspired home & office cleaning company. This is my second project — the first
-was [tic-tac-toe-project1](https://github.com/JahzeelReyes30/tic-tac-toe-project1), a game.
-This one is a business site meant to actually go live one day, so it had to hold up like a
-real product, not just a demo.
+healthcare-inspired home & office cleaning company. This is a business site meant to
+actually go live and support the real business, so it had to hold up like a real product,
+not just a demo.
 
 Every change made in this directory during a Claude Code session is automatically committed
 and pushed to GitHub after each turn.
 
-**Live site:** enable GitHub Pages in this repo's Settings → Pages → deploy from `main` /
-root, then it'll be reachable at `https://jahzeelreyes30.github.io/WebsiteProject/`.
+**Live site:** https://jahzeelreyes30.github.io/WebsiteProject/ (hosted via GitHub Pages,
+deployed from the `main` branch root).
 
 ## What's on the site
 
