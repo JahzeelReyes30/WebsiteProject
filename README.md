@@ -9,8 +9,9 @@ version is still visible in this repo's earlier commits if you want to see how i
 Every change made in this directory during a Claude Code session is automatically committed
 and pushed to GitHub after each turn.
 
-**Live site:** pending Vercel deployment (see setup steps below) — moved off GitHub Pages
-because a database-backed app needs a real server, which GitHub Pages can't run.
+**Live site:** https://website-project-theta-eight.vercel.app (hosted on Vercel, auto-deploys
+on every push to `main`) — moved off GitHub Pages because a database-backed app needs a real
+server, which GitHub Pages can't run.
 
 ## What's on the site
 
@@ -60,36 +61,21 @@ to which — is covered by a 26-case Vitest suite (`lib/validation.test.ts`), ru
 - No email/SMS notification fires when a new booking comes in yet — the admin dashboard is
   currently the only way to see new requests. Noted as future work below.
 
-## Setup needed before this is fully live
+## Setup status
 
-1. **Create a free [Supabase](https://supabase.com) project.**
-   - Sign up (GitHub login works), create a new project.
-   - In the Supabase dashboard's **SQL Editor**, paste in and run the contents of
-     `supabase/schema.sql` from this repo — that creates the `bookings` table and its
-     security policies.
-   - Go to **Authentication → Users** and manually add one user: your own email/password.
-     That's the only login this app needs — it's a single-admin dashboard, not multi-user.
-   - Go to **Settings → API** and copy the **Project URL** and **anon public key**.
+Done:
+- ✅ Supabase project created, `supabase/schema.sql` run, one admin user created
+- ✅ Environment variables set locally (`.env.local`) and on Vercel
+- ✅ Deployed on Vercel, live at the URL above, auto-deploys on every push to `main`
+- ✅ GitHub Pages turned off
 
-2. **Set the environment variables.**
-   - Locally: copy `.env.local.example` to `.env.local` and fill in the two values from
-     step 1.
-   - On Vercel (step 3): add the same two variables under Project Settings → Environment
-     Variables.
+Still to do:
 
-3. **Deploy on [Vercel](https://vercel.com).**
-   - Sign up (GitHub login works), "Add New Project," import this GitHub repo.
-   - Add the environment variables from step 2, then deploy. Vercel gives you a live URL,
-     and every future `git push` to `main` redeploys automatically.
-
-4. **Turn off GitHub Pages** for this repo (Settings → Pages → set Source to "None") since
-   the live site now lives on Vercel instead.
-
-5. **Point a real domain at it (later, once you own one).** Buy `majincleaningsolutions.com`
+1. **Point a real domain at it (later, once you own one).** Buy `majincleaningsolutions.com`
    (or similar), then add it under the Vercel project's Settings → Domains and follow the DNS
    instructions Vercel gives you.
 
-6. **Swap in real photos and reviews** once there are real jobs and real customers —
+2. **Swap in real photos and reviews** once there are real jobs and real customers —
    replace `public/images/before.svg` / `after.svg`, and edit the sample data at the top of
    `components/Reviews.tsx`.
 
