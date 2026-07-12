@@ -1,100 +1,124 @@
 # WebsiteProject — MajinCleaningSolutions
 
 A real business website, built end to end with Claude Code: **MajinCleaningSolutions**, a
-healthcare-inspired home & office cleaning company. This is a business site meant to
-actually go live and support the real business, so it had to hold up like a real product,
-not just a demo.
+healthcare-inspired home & office cleaning company. This started as a static marketing page
+and has since grown into a full-stack booking app — a customer-facing booking form backed by
+a real database, and a password-protected admin dashboard to manage requests. The static
+version is still visible in this repo's earlier commits if you want to see how it evolved.
 
 Every change made in this directory during a Claude Code session is automatically committed
 and pushed to GitHub after each turn.
 
-**Live site:** https://jahzeelreyes30.github.io/WebsiteProject/ (hosted via GitHub Pages,
-deployed from the `main` branch root).
+**Live site:** pending Vercel deployment (see setup steps below) — moved off GitHub Pages
+because a database-backed app needs a real server, which GitHub Pages can't run.
 
 ## What's on the site
 
-- **Hero** — the pitch: hospital-grade cleaning standards applied to everyday homes and offices.
-- **Free Quote funnel** — the whole point of the site commercially. Any "Free Quote" button
-  opens a modal asking for name, email, and phone, and submits straight to an inbox via
-  [Formspree](https://formspree.io) — no backend server required.
-- **Pricing** — one flat rate, $200, no tiers to get confused by.
-- **About Us** — the healthcare-inspired angle: hospital-grade disinfectants, color-coded
-  tools to avoid cross-contamination, and a checklist-driven process.
-- **Before & After gallery** — placeholder illustrations for now (see "What's fake right now"
-  below), sized and positioned exactly where real customer photos will eventually go.
-- **Reviews** — placeholder testimonials, same idea.
+- **Marketing pages** — hero, about us (healthcare-inspired positioning), flat $200 pricing,
+  before/after gallery, sample reviews.
+- **Booking form (the funnel)** — any "Free Quote" button opens a form asking for name,
+  email, phone, and a preferred date/time. Submitting it writes a real row into a Postgres
+  database via an API route — no third-party form relay involved.
+- **Admin dashboard** (`/admin`) — password-protected (Supabase Auth). Lists every booking
+  request and lets the business owner move each one through
+  `pending → confirmed → completed`, or cancel it.
 
 ## About this project
 
-This site had two jobs at once: it needed to look and work like something a real customer
-could actually book a cleaning through, *and* it needed to double as something an employer
-could look at and understand exactly how it was planned and built.
+**Why it moved off plain HTML/CSS/JS.** The static version could only ever pretend to take
+bookings — it had nowhere to actually store or manage them. This rebuild adds a real backend:
+**Next.js** (App Router, TypeScript) for both the public site and the admin dashboard,
+**Supabase** for the Postgres database and login system, and **Vercel** for hosting with
+auto-deploy on every push (the same "push to GitHub → it's live" flow GitHub Pages gave
+before).
 
-**Why plain HTML/CSS/JS, no framework.** I'm still learning, and I wanted every file to be
-something I could read top to bottom and actually understand — no build step, no
-`node_modules`, nothing to install just to open the page. It also means the site works the
-instant someone opens `index.html`, and deploys to GitHub Pages with zero configuration.
+**The funnel, unchanged in spirit.** Same idea as before — a "Get Your Free Quote Today"
+button is always one click away (hero, nav, pricing card, footer) and opens the same kind of
+modal form. The difference is what happens after you hit submit: instead of relaying through
+Formspree, the form now posts to `/api/bookings`, which validates the input
+(`lib/validation.ts`) and inserts it straight into the `bookings` table.
 
-**The funnel.** The brief was: the moment someone lands on the site, there should be an
-obvious path to "contact us for a free quote." Rather than force a popup on load (which most
-visitors find annoying and just close), I put a prominent "Get Your Free Quote Today" button
-right in the hero — the first thing anyone sees — plus repeated quote buttons in the nav,
-the pricing card, and the footer, so the funnel is never more than one click away no matter
-where someone is on the page. Clicking any of them opens the same modal form.
+**Why Supabase for both the database and login.** A booking system needs two things a static
+site can't do at all: somewhere to persist submissions, and a way to make sure only the
+business owner (not the public) can see and manage them. Supabase bundles a real Postgres
+database with a built-in auth system, so both needs are covered by one free service instead
+of standing up a database and an auth system separately. Row-level security policies
+(`supabase/schema.sql`) enforce the split at the database level: anyone can *submit* a
+booking, but only a logged-in admin can *read or update* the list.
 
-**Why Formspree instead of a real backend.** A static site has nowhere to *send* form
-submissions on its own — there's no server listening. Formspree solves that with a plain
-HTML `<form action="...">` pointed at their endpoint; they forward whatever gets submitted
-straight to an email inbox. No server code, no hosting bill, no database, and it's free at
-this scale.
+**Why Vercel over GitHub Pages.** GitHub Pages only serves static files — it has no way to
+run the `/api/bookings` route or talk to a database. Vercel runs the actual Next.js server,
+and (like GitHub Pages before) redeploys automatically every time this repo gets pushed to.
 
-**What's fake right now, on purpose:**
-- The before/after gallery uses hand-built SVG illustrations (`images/before.svg` /
-  `images/after.svg`), not real photos, since there aren't any customer jobs yet.
+**Testing.** `lib/validation.ts` — the rules for a valid booking, and which status can move
+to which — is covered by a 26-case Vitest suite (`lib/validation.test.ts`), run with
+`npm run test`.
+
+**What's still placeholder, on purpose:**
+- The before/after gallery uses hand-built SVG illustrations, not real photos.
 - The reviews are sample text, not real customers.
-- The quote form points at `YOUR_FORM_ID` — a placeholder — until Formspree is actually
-  set up (see below).
+- No email/SMS notification fires when a new booking comes in yet — the admin dashboard is
+  currently the only way to see new requests. Noted as future work below.
 
-These are clearly labeled on the page itself ("sample" / "coming soon") so nothing is
-presented as real that isn't.
+## Setup needed before this is fully live
 
-## Setup still needed before this goes fully live
+1. **Create a free [Supabase](https://supabase.com) project.**
+   - Sign up (GitHub login works), create a new project.
+   - In the Supabase dashboard's **SQL Editor**, paste in and run the contents of
+     `supabase/schema.sql` from this repo — that creates the `bookings` table and its
+     security policies.
+   - Go to **Authentication → Users** and manually add one user: your own email/password.
+     That's the only login this app needs — it's a single-admin dashboard, not multi-user.
+   - Go to **Settings → API** and copy the **Project URL** and **anon public key**.
 
-1. **Wire up the real Formspree endpoint.**
-   - Go to [formspree.io](https://formspree.io) and create a free account.
-   - Create a new form; Formspree gives you an endpoint like
-     `https://formspree.io/f/abc1234`.
-   - In `index.html`, find the line `action="https://formspree.io/f/YOUR_FORM_ID"` inside
-     the `<form id="quote-form">` tag and replace `YOUR_FORM_ID` with your real ID.
-   - That's it — no other code changes needed. Submissions will start emailing you directly.
+2. **Set the environment variables.**
+   - Locally: copy `.env.local.example` to `.env.local` and fill in the two values from
+     step 1.
+   - On Vercel (step 3): add the same two variables under Project Settings → Environment
+     Variables.
 
-2. **Turn on GitHub Pages.**
-   - In this repo on GitHub: Settings → Pages → Source → deploy from the `main` branch,
-     root folder.
-   - The site goes live at `https://jahzeelreyes30.github.io/WebsiteProject/`.
+3. **Deploy on [Vercel](https://vercel.com).**
+   - Sign up (GitHub login works), "Add New Project," import this GitHub repo.
+   - Add the environment variables from step 2, then deploy. Vercel gives you a live URL,
+     and every future `git push` to `main` redeploys automatically.
 
-3. **Point a real domain at it (later, once you own one).**
-   - Buy `majincleaningsolutions.com` (or similar) from any domain registrar.
-   - Add a `CNAME` file to this repo containing just the domain name.
-   - In the registrar's DNS settings, add the records GitHub Pages' custom domain docs ask
-     for (an `A` record pointing at GitHub's IPs, or a `CNAME` record if using a subdomain).
-   - GitHub Pages will serve the exact same site at your own domain instead of the
-     `github.io` address.
+4. **Turn off GitHub Pages** for this repo (Settings → Pages → set Source to "None") since
+   the live site now lives on Vercel instead.
 
-4. **Swap in real photos and reviews** once you've done a few jobs — replace
-   `images/before.svg` / `images/after.svg` with real photos (same filenames, or update the
-   `<img src>` paths in `index.html`), and swap the sample `<blockquote>` reviews for real
-   ones.
+5. **Point a real domain at it (later, once you own one).** Buy `majincleaningsolutions.com`
+   (or similar), then add it under the Vercel project's Settings → Domains and follow the DNS
+   instructions Vercel gives you.
+
+6. **Swap in real photos and reviews** once there are real jobs and real customers —
+   replace `public/images/before.svg` / `after.svg`, and edit the sample data at the top of
+   `components/Reviews.tsx`.
+
+## Future work (intentionally out of scope for v1)
+
+- Email or SMS notification when a new booking request comes in.
+- Calendar/availability checking so two customers can't book the same slot.
+- Payments and customer accounts.
 
 ## Files
 
 ```
 WebsiteProject/
-├── index.html        the whole page: hero, about, pricing, gallery, reviews, quote modal
-├── css/style.css      all styling, mobile-responsive
-├── js/script.js       opens/closes the quote modal, submits the form via fetch()
-├── images/
-│   ├── before.svg      placeholder "messy room" illustration
-│   └── after.svg       placeholder "clean room" illustration
-└── README.md           this file
+├── app/
+│   ├── page.tsx                 marketing home page
+│   ├── api/bookings/route.ts    validates + inserts a new booking
+│   └── admin/
+│       ├── login/page.tsx       admin login (Supabase Auth)
+│       ├── page.tsx             protected dashboard: list + update bookings
+│       └── actions.ts           server actions: update status, sign out
+├── components/                  Header, Hero, About, Pricing, Gallery, Reviews, Footer,
+│                                 BookingModal (the funnel), admin/BookingStatusControl
+├── lib/
+│   ├── supabase/{client,server}.ts   Supabase client setup
+│   ├── validation.ts                 booking validation + status-transition rules
+│   └── validation.test.ts            Vitest suite for the above
+├── supabase/schema.sql          bookings table + row-level security policies
+├── proxy.ts                     protects /admin routes, refreshes the auth session
+├── public/images/                before.svg / after.svg placeholder gallery images
+├── .env.local.example            documents the two required env vars
+└── README.md                     this file
 ```
