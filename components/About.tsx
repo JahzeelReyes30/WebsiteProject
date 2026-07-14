@@ -29,9 +29,9 @@ export function About() {
               in healthcare as an Environmental Services worker, disinfecting rooms for
               COVID, MRSA, and other infectious conditions — hands-on experience with the
               chemicals and protocols it takes to make a space genuinely safe. We bring that
-              same healthcare-inspired standard to every home and office we clean:
-              EPA-registered disinfectants, color-coded tools to prevent cross-contamination,
-              and a room-by-room checklist so nothing gets missed.
+              same healthcare-inspired standard to every home and office we clean across
+              Long Island, NY: EPA-registered disinfectants, color-coded tools to prevent
+              cross-contamination, and a room-by-room checklist so nothing gets missed.
             </p>
             <p>
               Whether it&apos;s a busy household, a small office, or a space that needs a deep

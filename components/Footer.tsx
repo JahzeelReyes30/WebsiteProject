@@ -17,7 +17,9 @@ export function Footer() {
             Majin<span className="text-[#D9A93F]">Cleaning</span>Solutions
           </p>
         </div>
-        <p className="mt-2 text-[#D8CBA8]">Healthcare-inspired cleaning for homes &amp; offices.</p>
+        <p className="mt-2 text-[#D8CBA8]">
+          Healthcare-inspired cleaning for homes &amp; offices across Long Island, NY.
+        </p>
         <QuoteButton className="mt-4 rounded-full bg-[#C9A227] px-6 py-2 text-sm font-semibold text-[#0A0A0A] hover:bg-[#A6821F]">
           Free Quote
         </QuoteButton>

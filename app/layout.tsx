@@ -13,10 +13,38 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://website-project-theta-eight.vercel.app";
+
 export const metadata: Metadata = {
-  title: "MajinCleaningSolutions | Healthcare-Inspired Home & Office Cleaning",
+  metadataBase: new URL(siteUrl),
+  title: "MajinCleaningSolutions | Healthcare-Inspired Cleaning in Long Island, NY",
   description:
-    "MajinCleaningSolutions offers healthcare-inspired cleaning for homes and offices, backed by real hospital environmental services experience. Flat-rate $200 service. Get a free quote today.",
+    "MajinCleaningSolutions offers healthcare-inspired home and office cleaning across Long Island, NY, backed by real hospital environmental services experience. Flat-rate $200 service. Get a free quote today.",
+  openGraph: {
+    title: "MajinCleaningSolutions | Healthcare-Inspired Cleaning in Long Island, NY",
+    description:
+      "Healthcare-inspired home and office cleaning across Long Island, NY. Flat-rate $200 service.",
+    url: siteUrl,
+    siteName: "MajinCleaningSolutions",
+    images: [{ url: "/images/logo.png" }],
+    locale: "en_US",
+    type: "website",
+  },
+};
+
+const localBusinessJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "MajinCleaningSolutions",
+  description:
+    "Healthcare-inspired home and office cleaning across Long Island, NY. Flat-rate $200 service.",
+  url: siteUrl,
+  image: `${siteUrl}/images/logo.png`,
+  priceRange: "$200",
+  areaServed: {
+    "@type": "Place",
+    name: "Long Island, NY",
+  },
 };
 
 export default function RootLayout({
@@ -30,6 +58,10 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+        />
         <BookingModalProvider>{children}</BookingModalProvider>
       </body>
     </html>
