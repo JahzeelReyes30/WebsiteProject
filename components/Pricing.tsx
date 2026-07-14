@@ -10,8 +10,8 @@ const INCLUDES = [
 const TERMINAL_INCLUDES = [
   "EPA-registered disinfectant products",
   "Deep disinfection of all surfaces & high-touch points",
-  "Extra layer of protection for your household",
-  "Ideal after illness or for vulnerable family members",
+  "Ideal for active illness, recovery, or COVID exposure in the home",
+  "Extra peace of mind for vulnerable family members",
 ];
 
 export function Pricing() {
@@ -51,8 +51,9 @@ export function Pricing() {
             </p>
             <p className="-mt-1 mb-2 text-sm text-[#55504A]">per room</p>
             <p className="mb-5 text-sm text-[#55504A]">
-              An extra-thorough disinfection cleaning using EPA-registered products, applied
-              per label instructions for maximum effectiveness.
+              Perfect for when someone in your home is currently sick, recovering from an
+              illness like COVID-19, or you simply want extra peace of mind afterward. Uses
+              EPA-registered disinfectant products, applied per label instructions.
             </p>
 
             <ul className="mb-6 space-y-2 text-left">
