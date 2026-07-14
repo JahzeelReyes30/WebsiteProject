@@ -8,7 +8,7 @@ export function Hero() {
           Healthcare-Inspired Cleaning
         </p>
         <h1 className="mx-auto max-w-3xl text-4xl font-extrabold leading-tight text-[#0A0A0A] sm:text-5xl">
-          Cleaning that follows CDC guidelines, for your home or business.
+          A cleaner, healthier space — every time.
         </h1>
         <p className="mx-auto mt-5 mb-8 max-w-xl text-lg text-[#55504A]">
           MajinCleaningSolutions brings the same disinfection standards used in healthcare
