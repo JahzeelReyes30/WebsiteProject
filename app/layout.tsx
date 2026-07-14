@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MajinCleaningSolutions | Hospital-Grade Home & Office Cleaning",
+  title: "MajinCleaningSolutions | Healthcare-Inspired Home & Office Cleaning",
   description:
-    "MajinCleaningSolutions offers healthcare-inspired, hospital-grade cleaning for homes and offices. Flat-rate $200 service. Get a free quote today.",
+    "MajinCleaningSolutions offers healthcare-inspired cleaning that follows CDC guidelines for homes and offices. Flat-rate $200 service. Get a free quote today.",
 };
 
 export default function RootLayout({

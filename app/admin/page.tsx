@@ -24,14 +24,14 @@ export default async function AdminDashboardPage() {
     .returns<Booking[]>();
 
   return (
-    <div className="min-h-screen bg-[#f7faf9] p-6">
+    <div className="min-h-screen bg-[#FAF7F0] p-6">
       <div className="mx-auto max-w-5xl">
         <div className="mb-6 flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-[#0b3d3a]">Bookings</h1>
+          <h1 className="text-2xl font-bold text-[#0A0A0A]">Bookings</h1>
           <form action={signOut}>
             <button
               type="submit"
-              className="rounded-full border border-[#d8e8e6] px-4 py-1.5 text-sm font-semibold text-[#0b3d3a] hover:bg-white"
+              className="rounded-full border border-[#E8DFC4] px-4 py-1.5 text-sm font-semibold text-[#0A0A0A] hover:bg-white"
             >
               Sign out
             </button>
@@ -39,11 +39,11 @@ export default async function AdminDashboardPage() {
         </div>
 
         {!bookings || bookings.length === 0 ? (
-          <p className="text-[#4a5a58]">No booking requests yet.</p>
+          <p className="text-[#55504A]">No booking requests yet.</p>
         ) : (
-          <div className="overflow-x-auto rounded-xl border border-[#d8e8e6] bg-white">
+          <div className="overflow-x-auto rounded-xl border border-[#E8DFC4] bg-white">
             <table className="w-full min-w-[720px] text-left text-sm">
-              <thead className="border-b border-[#d8e8e6] bg-[#e6f6f4] text-[#0b3d3a]">
+              <thead className="border-b border-[#E8DFC4] bg-[#FBF3DC] text-[#0A0A0A]">
                 <tr>
                   <th className="px-4 py-3">Customer</th>
                   <th className="px-4 py-3">Contact</th>
@@ -54,16 +54,16 @@ export default async function AdminDashboardPage() {
               </thead>
               <tbody>
                 {bookings.map((booking) => (
-                  <tr key={booking.id} className="border-b border-[#d8e8e6] last:border-0">
-                    <td className="px-4 py-3 font-medium text-[#0b3d3a]">{booking.name}</td>
-                    <td className="px-4 py-3 text-[#4a5a58]">
+                  <tr key={booking.id} className="border-b border-[#E8DFC4] last:border-0">
+                    <td className="px-4 py-3 font-medium text-[#0A0A0A]">{booking.name}</td>
+                    <td className="px-4 py-3 text-[#55504A]">
                       <div>{booking.email}</div>
                       <div>{booking.phone}</div>
                     </td>
-                    <td className="px-4 py-3 text-[#4a5a58]">
+                    <td className="px-4 py-3 text-[#55504A]">
                       {booking.preferred_date} at {booking.preferred_time}
                     </td>
-                    <td className="max-w-[220px] px-4 py-3 text-[#4a5a58]">
+                    <td className="max-w-[220px] px-4 py-3 text-[#55504A]">
                       {booking.note || "—"}
                     </td>
                     <td className="px-4 py-3">

@@ -1,7 +1,7 @@
 const REVIEWS = [
   {
     quote:
-      "Genuinely felt like a hospital-clean home afterward. My allergies have never been better.",
+      "Genuinely felt spotless afterward — you can tell they follow real cleaning standards. My allergies have never been better.",
     author: "Priya M.",
   },
   {
@@ -19,8 +19,8 @@ export function Reviews() {
   return (
     <section id="reviews" className="py-16">
       <div className="mx-auto max-w-[1080px] px-6 text-center">
-        <h2 className="text-3xl font-bold text-[#0b3d3a]">What Customers Say</h2>
-        <p className="mx-auto mt-2 max-w-md text-[#4a5a58]">
+        <h2 className="text-3xl font-bold text-[#0A0A0A]">What Customers Say</h2>
+        <p className="mx-auto mt-2 max-w-md text-[#55504A]">
           <em>Sample reviews shown for demonstration — real customer reviews coming soon.</em>
         </p>
 
@@ -28,11 +28,11 @@ export function Reviews() {
           {REVIEWS.map((review) => (
             <blockquote
               key={review.author}
-              className="rounded-xl border border-[#d8e8e6] bg-white p-6 text-left"
+              className="rounded-xl border border-[#E8DFC4] bg-white p-6 text-left"
             >
-              <p className="mb-2 tracking-widest text-[#f5a623]">★★★★★</p>
-              <p className="text-[#4a5a58]">&quot;{review.quote}&quot;</p>
-              <cite className="mt-3 block font-bold not-italic text-[#0b3d3a]">
+              <p className="mb-2 tracking-widest text-[#D9A93F]">★★★★★</p>
+              <p className="text-[#55504A]">&quot;{review.quote}&quot;</p>
+              <cite className="mt-3 block font-bold not-italic text-[#0A0A0A]">
                 — {review.author}
               </cite>
             </blockquote>

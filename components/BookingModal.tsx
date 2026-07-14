@@ -5,7 +5,7 @@ import { useBookingModal } from "./BookingModalContext";
 import type { BookingErrors } from "@/lib/validation";
 
 const inputClasses =
-  "w-full rounded-md border border-[#d8e8e6] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#14a89a]/30 focus:border-[#14a89a]";
+  "w-full rounded-md border border-[#E8DFC4] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#8A6914]/30 focus:border-[#8A6914]";
 
 export function BookingModal() {
   const { isOpen, close } = useBookingModal();
@@ -41,7 +41,7 @@ export function BookingModal() {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-[#0b3d3a]/55 p-5"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[#0A0A0A]/55 p-5"
       onClick={(e) => {
         if (e.target === e.currentTarget) close();
       }}
@@ -51,31 +51,31 @@ export function BookingModal() {
           type="button"
           onClick={close}
           aria-label="Close"
-          className="absolute right-4 top-3 text-2xl leading-none text-[#4a5a58] hover:text-[#0b3d3a]"
+          className="absolute right-4 top-3 text-2xl leading-none text-[#55504A] hover:text-[#0A0A0A]"
         >
           &times;
         </button>
 
         {status === "success" ? (
           <div className="text-center py-6">
-            <h2 className="text-xl font-bold text-[#0b3d3a] mb-2">Request received!</h2>
-            <p className="text-[#4a5a58]">
+            <h2 className="text-xl font-bold text-[#0A0A0A] mb-2">Request received!</h2>
+            <p className="text-[#55504A]">
               Thanks — we&apos;ll follow up shortly to confirm your booking.
             </p>
             <button
               type="button"
               onClick={close}
-              className="mt-6 rounded-full bg-[#14a89a] px-6 py-2 font-semibold text-white hover:bg-[#0f6b63]"
+              className="mt-6 rounded-full bg-[#C9A227] px-6 py-2 font-semibold text-[#0A0A0A] hover:bg-[#A6821F]"
             >
               Close
             </button>
           </div>
         ) : (
           <>
-            <h2 className="text-xl font-bold text-[#0b3d3a] mb-1">
+            <h2 className="text-xl font-bold text-[#0A0A0A] mb-1">
               Contact Us for a Free Quote Today
             </h2>
-            <p className="text-[#4a5a58] text-sm mb-5">
+            <p className="text-[#55504A] text-sm mb-5">
               Tell us a bit about you and pick a time that works.
             </p>
 
@@ -154,7 +154,7 @@ export function BookingModal() {
               <button
                 type="submit"
                 disabled={status === "sending"}
-                className="w-full rounded-full bg-[#14a89a] px-6 py-3 font-semibold text-white hover:bg-[#0f6b63] disabled:opacity-60"
+                className="w-full rounded-full bg-[#C9A227] px-6 py-3 font-semibold text-[#0A0A0A] hover:bg-[#A6821F] disabled:opacity-60"
               >
                 {status === "sending" ? "Sending..." : "Request My Free Quote"}
               </button>

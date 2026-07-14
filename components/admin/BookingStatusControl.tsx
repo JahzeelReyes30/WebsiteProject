@@ -44,7 +44,7 @@ export function BookingStatusControl({
           disabled={isPending}
           defaultValue=""
           onChange={(e) => e.target.value && handleChange(e.target.value as BookingStatus)}
-          className="rounded-md border border-[#d8e8e6] px-2 py-1 text-xs"
+          className="rounded-md border border-[#E8DFC4] px-2 py-1 text-xs"
         >
           <option value="" disabled>
             Move to...
