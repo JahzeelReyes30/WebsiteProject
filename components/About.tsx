@@ -1,6 +1,6 @@
 const POINTS = [
   {
-    title: "CDC-guideline disinfection",
+    title: "Healthcare-inspired disinfection",
     body: "EPA-registered disinfectants used in medical settings.",
   },
   {
@@ -25,9 +25,11 @@ export function About() {
         <div className="grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-start">
           <div className="space-y-4 text-[#55504A]">
             <p>
-              MajinCleaningSolutions was built on a simple idea: your home and workplace
-              deserve the same level of cleanliness and care as a healthcare facility. We
-              follow healthcare-inspired cleaning protocols aligned with CDC guidelines —
+              MajinCleaningSolutions is built on real hospital experience. Our founder worked
+              in healthcare as an Environmental Services worker, disinfecting rooms for
+              COVID, MRSA, and other infectious conditions — hands-on experience with the
+              chemicals and protocols it takes to make a space genuinely safe. We bring that
+              same healthcare-inspired standard to every home and office we clean:
               EPA-registered disinfectants, color-coded tools to prevent cross-contamination,
               and a room-by-room checklist so nothing gets missed.
             </p>

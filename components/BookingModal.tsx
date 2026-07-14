@@ -81,7 +81,7 @@ export function BookingModal() {
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label htmlFor="name" className="block text-sm font-semibold mb-1">
+                <label htmlFor="name" className="block text-sm font-bold text-[#0A0A0A] mb-1">
                   Full Name
                 </label>
                 <input id="name" name="name" type="text" className={inputClasses} required />
@@ -89,7 +89,7 @@ export function BookingModal() {
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-semibold mb-1">
+                <label htmlFor="email" className="block text-sm font-bold text-[#0A0A0A] mb-1">
                   Email
                 </label>
                 <input id="email" name="email" type="email" className={inputClasses} required />
@@ -97,7 +97,7 @@ export function BookingModal() {
               </div>
 
               <div>
-                <label htmlFor="phone" className="block text-sm font-semibold mb-1">
+                <label htmlFor="phone" className="block text-sm font-bold text-[#0A0A0A] mb-1">
                   Phone Number
                 </label>
                 <input
@@ -113,7 +113,7 @@ export function BookingModal() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label htmlFor="preferredDate" className="block text-sm font-semibold mb-1">
+                  <label htmlFor="preferredDate" className="block text-sm font-bold text-[#0A0A0A] mb-1">
                     Preferred Date
                   </label>
                   <input
@@ -128,7 +128,7 @@ export function BookingModal() {
                   )}
                 </div>
                 <div>
-                  <label htmlFor="preferredTime" className="block text-sm font-semibold mb-1">
+                  <label htmlFor="preferredTime" className="block text-sm font-bold text-[#0A0A0A] mb-1">
                     Preferred Time
                   </label>
                   <input
@@ -145,7 +145,7 @@ export function BookingModal() {
               </div>
 
               <div>
-                <label htmlFor="note" className="block text-sm font-semibold mb-1">
+                <label htmlFor="note" className="block text-sm font-bold text-[#0A0A0A] mb-1">
                   Anything we should know? (optional)
                 </label>
                 <textarea id="note" name="note" rows={2} className={inputClasses} />

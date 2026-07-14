@@ -19,16 +19,16 @@ export function Header() {
           </span>
         </a>
         <nav className="flex flex-wrap items-center gap-5">
-          <a href="#about" className="text-sm font-medium hover:text-[#8A6914]">
+          <a href="#about" className="text-sm font-bold text-[#0A0A0A] hover:text-[#8A6914]">
             About
           </a>
-          <a href="#pricing" className="text-sm font-medium hover:text-[#8A6914]">
+          <a href="#pricing" className="text-sm font-bold text-[#0A0A0A] hover:text-[#8A6914]">
             Pricing
           </a>
-          <a href="#gallery" className="text-sm font-medium hover:text-[#8A6914]">
+          <a href="#gallery" className="text-sm font-bold text-[#0A0A0A] hover:text-[#8A6914]">
             Before &amp; After
           </a>
-          <a href="#reviews" className="text-sm font-medium hover:text-[#8A6914]">
+          <a href="#reviews" className="text-sm font-bold text-[#0A0A0A] hover:text-[#8A6914]">
             Reviews
           </a>
           <QuoteButton className="rounded-full bg-[#0A0A0A] px-5 py-2 text-sm font-semibold text-white hover:bg-[#A6821F]">

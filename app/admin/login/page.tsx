@@ -40,7 +40,7 @@ export default function AdminLoginPage() {
         <h1 className="mb-1 text-xl font-bold text-[#0A0A0A]">Admin Login</h1>
         <p className="mb-5 text-sm text-[#55504A]">MajinCleaningSolutions booking dashboard</p>
 
-        <label htmlFor="email" className="mb-1 block text-sm font-semibold">
+        <label htmlFor="email" className="mb-1 block text-sm font-bold text-[#0A0A0A]">
           Email
         </label>
         <input
@@ -51,7 +51,7 @@ export default function AdminLoginPage() {
           className="mb-4 w-full rounded-md border border-[#E8DFC4] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#8A6914]/30 focus:border-[#8A6914]"
         />
 
-        <label htmlFor="password" className="mb-1 block text-sm font-semibold">
+        <label htmlFor="password" className="mb-1 block text-sm font-bold text-[#0A0A0A]">
           Password
         </label>
         <input

@@ -2,7 +2,7 @@ import { QuoteButton } from "./QuoteButton";
 
 const INCLUDES = [
   "Full room-by-room cleaning",
-  "CDC-guideline disinfection",
+  "Healthcare-inspired disinfection",
   "Kitchen & bathroom deep clean",
   "Dusting, vacuuming & mopping",
 ];
