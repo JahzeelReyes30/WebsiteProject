@@ -29,7 +29,7 @@ export function About() {
             alt="Jahzeel Reyes, founder of Majin Cleaning Solutions"
             width={780}
             height={780}
-            className="h-[280px] w-[280px] rounded-2xl border-4 border-[#C9A227] object-cover shadow-[0_12px_32px_rgba(10,10,10,0.18)] sm:h-[360px] sm:w-[360px]"
+            className="h-[280px] w-[280px] rounded-full border-4 border-[#C9A227] object-cover shadow-[0_12px_32px_rgba(10,10,10,0.18)] sm:h-[360px] sm:w-[360px]"
             priority
           />
           <p className="mt-5 text-lg font-bold text-[#0A0A0A]">Jahzeel Reyes</p>
