@@ -23,6 +23,8 @@ server, which GitHub Pages can't run.
 - **Admin dashboard** (`/admin`) — password-protected (Supabase Auth). Lists every booking
   request and lets the business owner move each one through
   `pending → confirmed → completed`, or cancel it.
+- **Email notification** — every new booking sends an email alert via Resend
+  (`lib/email.ts`), so you don't have to keep checking the admin dashboard.
 
 ## About this project
 
@@ -58,8 +60,6 @@ to which — is covered by a 26-case Vitest suite (`lib/validation.test.ts`), ru
 **What's still placeholder, on purpose:**
 - The before/after gallery uses hand-built SVG illustrations, not real photos.
 - The reviews are sample text, not real customers.
-- No email/SMS notification fires when a new booking comes in yet — the admin dashboard is
-  currently the only way to see new requests. Noted as future work below.
 
 ## Setup status
 
@@ -71,17 +71,22 @@ Done:
 
 Still to do:
 
-1. **Point a real domain at it (later, once you own one).** Buy `majincleaningsolutions.com`
+1. **Add `RESEND_API_KEY` locally and on Vercel** to turn on booking email alerts —
+   sign up at https://resend.com, grab the API key, and set it (plus
+   `BOOKING_NOTIFY_EMAIL`) in `.env.local` and the Vercel project's Settings →
+   Environment Variables. Bookings save fine without it; you just won't get emailed.
+
+2. **Point a real domain at it (later, once you own one).** Buy `majincleaningsolutions.com`
    (or similar), then add it under the Vercel project's Settings → Domains and follow the DNS
    instructions Vercel gives you.
 
-2. **Swap in real photos and reviews** once there are real jobs and real customers —
+3. **Swap in real photos and reviews** once there are real jobs and real customers —
    replace `public/images/before.svg` / `after.svg`, and edit the sample data at the top of
    `components/Reviews.tsx`.
 
 ## Future work (intentionally out of scope for v1)
 
-- Email or SMS notification when a new booking request comes in.
+- SMS notification when a new booking request comes in.
 - Calendar/availability checking so two customers can't book the same slot.
 - Payments and customer accounts.
 
@@ -105,6 +110,7 @@ WebsiteProject/
 ├── supabase/schema.sql          bookings table + row-level security policies
 ├── proxy.ts                     protects /admin routes, refreshes the auth session
 ├── public/images/                before.svg / after.svg placeholder gallery images
-├── .env.local.example            documents the two required env vars
+├── lib/email.ts                  Resend booking-notification email
+├── .env.local.example            documents the required + optional env vars
 └── README.md                     this file
 ```

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { sendBookingNotification } from "@/lib/email";
 import { validateBookingInput, type BookingInput } from "@/lib/validation";
 
 export async function POST(request: Request) {
@@ -31,6 +32,14 @@ export async function POST(request: Request) {
       { error: "Could not save your booking. Please try again." },
       { status: 500 }
     );
+  }
+
+  // Best-effort: the booking is already saved, so a notification failure
+  // shouldn't turn into an error response for the customer.
+  try {
+    await sendBookingNotification(body as BookingInput);
+  } catch (err) {
+    console.error("Booking notification email failed:", err);
   }
 
   return NextResponse.json({ success: true }, { status: 201 });
