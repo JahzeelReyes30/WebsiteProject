@@ -24,14 +24,16 @@ export function About() {
     <section id="about" className="py-16">
       <div className="mx-auto max-w-[1080px] px-6">
         <div className="mb-10 flex flex-col items-center text-center">
-          <Image
-            src="/images/founder-headshot.jpg"
-            alt="Jahzeel Reyes, founder of Majin Cleaning Solutions"
-            width={780}
-            height={780}
-            className="h-[280px] w-[280px] rounded-full border-4 border-[#C9A227] object-cover shadow-[0_12px_32px_rgba(10,10,10,0.18)] sm:h-[360px] sm:w-[360px]"
-            priority
-          />
+          <div className="h-[300px] w-[300px] rounded-full border-4 border-[#C9A227] bg-white p-2 shadow-[0_12px_32px_rgba(10,10,10,0.18)] sm:h-[380px] sm:w-[380px]">
+            <Image
+              src="/images/founder-headshot.jpg"
+              alt="Jahzeel Reyes, founder of Majin Cleaning Solutions"
+              width={780}
+              height={780}
+              className="h-full w-full rounded-full object-cover"
+              priority
+            />
+          </div>
           <p className="mt-5 text-lg font-bold text-[#0A0A0A]">Jahzeel Reyes</p>
           <p className="text-sm font-semibold uppercase tracking-wide text-[#8A6914]">
             Founder, Majin Cleaning Solutions
