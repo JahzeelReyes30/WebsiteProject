@@ -80,6 +80,19 @@ export function BookingModal() {
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Honeypot: invisible to real visitors, but bots that
+                  auto-fill every field tend to fill this one in too. */}
+              <div className="absolute -left-[9999px] top-auto" aria-hidden="true">
+                <label htmlFor="company">Company</label>
+                <input
+                  id="company"
+                  name="company"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
               <div>
                 <label htmlFor="name" className="block text-sm font-bold text-[#0A0A0A] mb-1">
                   Full Name

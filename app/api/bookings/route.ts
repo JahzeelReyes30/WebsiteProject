@@ -4,11 +4,18 @@ import { sendBookingNotification } from "@/lib/email";
 import { validateBookingInput, type BookingInput } from "@/lib/validation";
 
 export async function POST(request: Request) {
-  let body: Partial<BookingInput>;
+  let body: Partial<BookingInput> & { company?: string };
   try {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
+  }
+
+  // Honeypot: real visitors never fill this hidden field in, so anything
+  // that does is a bot. Pretend success without saving anything, so bots
+  // don't learn to adapt.
+  if (body.company) {
+    return NextResponse.json({ success: true }, { status: 201 });
   }
 
   const errors = validateBookingInput(body);
