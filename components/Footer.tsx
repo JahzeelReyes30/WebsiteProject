@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { QuoteButton } from "./QuoteButton";
 
 export function Footer() {
@@ -24,7 +25,10 @@ export function Footer() {
           Free Quote
         </QuoteButton>
         <p className="mt-6 text-xs text-[#A8967A]">
-          &copy; 2026 MajinCleaningSolutions. All rights reserved.
+          &copy; 2026 MajinCleaningSolutions. All rights reserved.{" "}
+          <Link href="/admin" className="underline hover:text-[#D8CBA8]">
+            Admin
+          </Link>
         </p>
       </div>
     </footer>
