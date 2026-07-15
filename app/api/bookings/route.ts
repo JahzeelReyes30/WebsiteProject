@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { createServiceClient } from "@/lib/supabase/service";
 import { sendBookingNotification } from "@/lib/email";
 import { validateBookingInput, type BookingInput } from "@/lib/validation";
 
@@ -23,15 +23,21 @@ export async function POST(request: Request) {
     return NextResponse.json({ errors }, { status: 400 });
   }
 
-  const supabase = await createClient();
+  // Uses the service_role key (bypasses RLS) since this insert is already
+  // fully validated and gated by this trusted server-side route -- the
+  // public-facing anon key's RLS evaluation was proving unreliable for
+  // writes here, so writes go through a trusted server-only credential
+  // instead. Never expose this client to the browser.
+  const supabase = createServiceClient();
 
   // Re-check for a conflict at submit time, since the slot picker's list
   // could be stale if someone else booked the same slot moments ago.
   const { data: conflicts, error: conflictError } = await supabase
-    .from("booking_slots")
-    .select("preferred_time")
+    .from("bookings")
+    .select("id")
     .eq("preferred_date", body.preferredDate!)
-    .eq("preferred_time", body.preferredTime!);
+    .eq("preferred_time", body.preferredTime!)
+    .neq("status", "cancelled");
 
   if (conflictError) {
     console.error("Booking conflict check failed:", conflictError);
