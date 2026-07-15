@@ -83,24 +83,18 @@ Done:
 - ✅ Environment variables set locally (`.env.local`) and on Vercel
 - ✅ Deployed on Vercel, live at the URL above, auto-deploys on every push to `main`
 - ✅ GitHub Pages turned off
+- ✅ `booking_slots` view + grant run in the Supabase SQL Editor — availability checking is
+  live
+- ✅ `RESEND_API_KEY` set locally and on Vercel — booking email alerts are live, sent to
+  `BOOKING_NOTIFY_EMAIL`
 
 Still to do:
 
-1. **Run the `booking_slots` view + grant from `supabase/schema.sql` in the Supabase SQL
-   Editor** (the two statements at the bottom, added when availability checking landed) —
-   without this, `/api/availability` will error and the booking form's time picker won't load
-   any slots.
-
-2. **Add `RESEND_API_KEY` locally and on Vercel** to turn on booking email alerts —
-   sign up at https://resend.com, grab the API key, and set it (plus
-   `BOOKING_NOTIFY_EMAIL`) in `.env.local` and the Vercel project's Settings →
-   Environment Variables. Bookings save fine without it; you just won't get emailed.
-
-3. **Point a real domain at it (later, once you own one).** Buy `majincleaningsolutions.com`
+1. **Point a real domain at it (later, once you own one).** Buy `majincleaningsolutions.com`
    (or similar), then add it under the Vercel project's Settings → Domains and follow the DNS
    instructions Vercel gives you.
 
-4. **Swap in real photos and reviews** once there are real jobs and real customers —
+2. **Swap in real photos and reviews** once there are real jobs and real customers —
    replace `public/images/before.svg` / `after.svg`, and edit the sample data at the top of
    `components/Reviews.tsx`.
 
