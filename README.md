@@ -17,12 +17,12 @@ server, which GitHub Pages can't run.
 
 - **Marketing pages** — hero, about us (healthcare-inspired positioning), flat $200 pricing,
   before/after gallery, sample reviews.
-- **Booking form (the funnel)** — any "Free Quote" button opens a form asking for name,
-  email, phone, a date, and a time slot. The time picker only shows 2-hour slots that fall
-  within business hours *and* aren't already booked (`lib/availability.ts`,
-  `/api/availability`) — pick a date and it fetches real availability before you can choose a
-  time. Submitting writes a real row into a Postgres database via an API route — no
-  third-party form relay involved.
+- **Booking form (the funnel)** — any "Free Quote" button opens a 4-step wizard
+  (`components/BookingModal.tsx` + `components/booking/*`): pick a date from a scrollable
+  strip of date chips, pick a time from a scroll-wheel of open 2-hour slots (only slots that
+  fall within business hours *and* aren't already booked show up, via `lib/availability.ts`
+  and `/api/availability`), enter contact info, then review and confirm. Submitting writes a
+  real row into a Postgres database via an API route — no third-party form relay involved.
 - **Admin dashboard** (`/admin`) — password-protected (Supabase Auth). Lists every booking
   request and lets the business owner move each one through
   `pending → confirmed → completed`, or cancel it.

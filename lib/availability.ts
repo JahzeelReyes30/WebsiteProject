@@ -70,3 +70,20 @@ export function formatSlotLabel(startTime: string): string {
   const endTime = fromMinutes(toMinutes(startTime) + SLOT_DURATION_HOURS * 60);
   return `${to12Hour(startTime)} – ${to12Hour(endTime)}`;
 }
+
+function toShortHour(hhmm: string): string {
+  const [hStr] = hhmm.split(":");
+  const hour24 = Number(hStr) % 24;
+  const period = hour24 >= 12 ? "pm" : "am";
+  const hour12 = hour24 % 12 || 12;
+  return `${hour12}${period}`;
+}
+
+/** Short open/close label for a date, e.g. "8am–10pm" or "4pm–12am". */
+export function getHoursLabelForDate(dateStr: string): string {
+  const day = getDayOfWeek(dateStr);
+  if (day === null) return "";
+
+  const hours = WEEKLY_HOURS[day];
+  return `${toShortHour(hours.open)}–${toShortHour(hours.close)}`;
+}

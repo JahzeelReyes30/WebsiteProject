@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { formatSlotLabel, getSlotsForDate, isWithinBusinessHours } from "./availability";
+import {
+  formatSlotLabel,
+  getHoursLabelForDate,
+  getSlotsForDate,
+  isWithinBusinessHours,
+} from "./availability";
 
 describe("getSlotsForDate", () => {
   it("returns weekday slots for a Monday (8am-10pm)", () => {
@@ -60,5 +65,23 @@ describe("formatSlotLabel", () => {
 
   it("formats the last weekend slot ending at midnight", () => {
     expect(formatSlotLabel("22:00")).toBe("10:00 PM – 12:00 AM");
+  });
+});
+
+describe("getHoursLabelForDate", () => {
+  it("labels a weekday", () => {
+    expect(getHoursLabelForDate("2026-07-20")).toBe("8am–10pm");
+  });
+
+  it("labels a Saturday", () => {
+    expect(getHoursLabelForDate("2026-08-01")).toBe("4pm–12am");
+  });
+
+  it("labels a Sunday", () => {
+    expect(getHoursLabelForDate("2026-08-02")).toBe("4pm–12am");
+  });
+
+  it("returns an empty string for an invalid date", () => {
+    expect(getHoursLabelForDate("not-a-date")).toBe("");
   });
 });
