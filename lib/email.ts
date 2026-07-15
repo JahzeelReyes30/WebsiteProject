@@ -9,7 +9,11 @@ export async function sendBookingNotification(booking: BookingInput) {
   const resend = new Resend(apiKey);
   const from = process.env.RESEND_FROM_EMAIL || "MajinCleaningSolutions <onboarding@resend.dev>";
 
-  await resend.emails.send({
+  // The Resend SDK returns { data, error } instead of throwing for
+  // API-level failures (e.g. sandbox sender restrictions) -- only network
+  // failures throw. Without checking `error` explicitly, a failed send
+  // looks identical to a successful one to the caller.
+  const { error } = await resend.emails.send({
     from,
     to,
     subject: `New booking request from ${booking.name}`,
@@ -24,4 +28,8 @@ export async function sendBookingNotification(booking: BookingInput) {
       "View and manage this request in the admin dashboard.",
     ].join("\n"),
   });
+
+  if (error) {
+    throw new Error(`Resend rejected the notification: ${error.message}`);
+  }
 }
