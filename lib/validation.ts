@@ -1,6 +1,8 @@
 // Shared validation for booking submissions. Used by both the public
 // booking API route and its test suite, so the rules only live in one place.
 
+import { isWithinBusinessHours } from "./availability";
+
 export type BookingInput = {
   name: string;
   email: string;
@@ -59,6 +61,12 @@ export function validateBookingInput(
   }
   if (!input.preferredTime || !isValidPreferredTime(input.preferredTime)) {
     errors.preferredTime = "Choose a valid time.";
+  } else if (
+    input.preferredDate &&
+    isValidPreferredDate(input.preferredDate, now) &&
+    !isWithinBusinessHours(input.preferredDate, input.preferredTime)
+  ) {
+    errors.preferredTime = "That time is outside business hours. Please pick from the available times shown.";
   }
 
   return errors;

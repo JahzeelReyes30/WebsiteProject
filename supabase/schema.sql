@@ -37,3 +37,15 @@ create policy "Authenticated admin can update bookings"
   to authenticated
   using (true)
   with check (true);
+
+-- Lets the public booking form check which slots are already taken without
+-- ever exposing customer names/emails/phones to anonymous visitors. Views
+-- run with their owner's privileges by default (not the querying role's),
+-- so this bypasses the anon SELECT restriction on `bookings` above while
+-- only ever surfacing date/time/status.
+create view booking_slots as
+  select preferred_date, preferred_time, status
+  from bookings
+  where status <> 'cancelled';
+
+grant select on booking_slots to anon;

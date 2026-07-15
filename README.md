@@ -18,8 +18,11 @@ server, which GitHub Pages can't run.
 - **Marketing pages** — hero, about us (healthcare-inspired positioning), flat $200 pricing,
   before/after gallery, sample reviews.
 - **Booking form (the funnel)** — any "Free Quote" button opens a form asking for name,
-  email, phone, and a preferred date/time. Submitting it writes a real row into a Postgres
-  database via an API route — no third-party form relay involved.
+  email, phone, a date, and a time slot. The time picker only shows 2-hour slots that fall
+  within business hours *and* aren't already booked (`lib/availability.ts`,
+  `/api/availability`) — pick a date and it fetches real availability before you can choose a
+  time. Submitting writes a real row into a Postgres database via an API route — no
+  third-party form relay involved.
 - **Admin dashboard** (`/admin`) — password-protected (Supabase Auth). Lists every booking
   request and lets the business owner move each one through
   `pending → confirmed → completed`, or cancel it.
@@ -57,6 +60,18 @@ and (like GitHub Pages before) redeploys automatically every time this repo gets
 to which — is covered by a 26-case Vitest suite (`lib/validation.test.ts`), run with
 `npm run test`.
 
+**Business hours.** Mon–Fri 8am–10pm, Sat–Sun 4pm–midnight (appointments only). Every
+appointment is a 2-hour slot. To change the hours, edit `WEEKLY_HOURS` at the top of
+`lib/availability.ts` — no database change needed, since the schedule is the same every week.
+
+**How double-booking is prevented without exposing customer data.** The booking form is public
+and unauthenticated, but `bookings` RLS only lets anonymous visitors *insert*, not read (see
+below) — so the availability check can't just query `bookings` directly from the browser. A
+Postgres view, `booking_slots` (`supabase/schema.sql`), exposes only `preferred_date`,
+`preferred_time`, and `status` — never name/email/phone — and `/api/availability` reads from
+that view to compute open slots. The booking API route re-checks the same view right before
+inserting, so two people can't win a race on the same slot.
+
 **What's still placeholder, on purpose:**
 - The before/after gallery uses hand-built SVG illustrations, not real photos.
 - The reviews are sample text, not real customers.
@@ -71,23 +86,27 @@ Done:
 
 Still to do:
 
-1. **Add `RESEND_API_KEY` locally and on Vercel** to turn on booking email alerts —
+1. **Run the `booking_slots` view + grant from `supabase/schema.sql` in the Supabase SQL
+   Editor** (the two statements at the bottom, added when availability checking landed) —
+   without this, `/api/availability` will error and the booking form's time picker won't load
+   any slots.
+
+2. **Add `RESEND_API_KEY` locally and on Vercel** to turn on booking email alerts —
    sign up at https://resend.com, grab the API key, and set it (plus
    `BOOKING_NOTIFY_EMAIL`) in `.env.local` and the Vercel project's Settings →
    Environment Variables. Bookings save fine without it; you just won't get emailed.
 
-2. **Point a real domain at it (later, once you own one).** Buy `majincleaningsolutions.com`
+3. **Point a real domain at it (later, once you own one).** Buy `majincleaningsolutions.com`
    (or similar), then add it under the Vercel project's Settings → Domains and follow the DNS
    instructions Vercel gives you.
 
-3. **Swap in real photos and reviews** once there are real jobs and real customers —
+4. **Swap in real photos and reviews** once there are real jobs and real customers —
    replace `public/images/before.svg` / `after.svg`, and edit the sample data at the top of
    `components/Reviews.tsx`.
 
 ## Future work (intentionally out of scope for v1)
 
 - SMS notification when a new booking request comes in.
-- Calendar/availability checking so two customers can't book the same slot.
 - Payments and customer accounts.
 
 ## Files

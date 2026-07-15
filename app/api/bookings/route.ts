@@ -24,6 +24,28 @@ export async function POST(request: Request) {
   }
 
   const supabase = await createClient();
+
+  // Re-check for a conflict at submit time, since the slot picker's list
+  // could be stale if someone else booked the same slot moments ago.
+  const { data: conflicts, error: conflictError } = await supabase
+    .from("booking_slots")
+    .select("preferred_time")
+    .eq("preferred_date", body.preferredDate!)
+    .eq("preferred_time", body.preferredTime!);
+
+  if (conflictError) {
+    return NextResponse.json(
+      { error: "Could not save your booking. Please try again." },
+      { status: 500 }
+    );
+  }
+  if (conflicts && conflicts.length > 0) {
+    return NextResponse.json(
+      { errors: { preferredTime: "That time was just booked. Please pick another." } },
+      { status: 409 }
+    );
+  }
+
   const { error } = await supabase.from("bookings").insert({
     name: body.name!.trim(),
     email: body.email!.trim(),
